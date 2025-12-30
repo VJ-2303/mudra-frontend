@@ -1143,18 +1143,26 @@ p {
     }
     
     .hero-mudra-display {
-        width: 250px;
-        height: 250px;
+        width: 200px;
+        height: 200px;
     }
     
     .hero-mudra-icon {
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
     }
     
     .hero-image-bg {
-        width: 300px;
-        height: 300px;
+        width: 240px;
+        height: 240px;
+    }
+    
+    .webcam-visual {
+        display: none;
+    }
+    
+    .webcam-content {
+        grid-template-columns: 1fr;
     }
     
     .hero-title {
@@ -1303,18 +1311,18 @@ p {
     }
     
     .hero-mudra-display {
-        width: 200px;
-        height: 200px;
+        width: 160px;
+        height: 160px;
     }
     
     .hero-mudra-icon {
-        width: 120px;
-        height: 120px;
+        width: 100px;
+        height: 100px;
     }
     
     .hero-image-bg {
-        width: 220px;
-        height: 220px;
+        width: 180px;
+        height: 180px;
     }
     
     .btn {
@@ -1458,8 +1466,18 @@ p {
     }
     
     .hero-mudra-display {
-        width: 180px;
-        height: 180px;
+        width: 140px;
+        height: 140px;
+    }
+    
+    .hero-mudra-icon {
+        width: 85px;
+        height: 85px;
+    }
+    
+    .hero-image-bg {
+        width: 160px;
+        height: 160px;
     }
     
     .stat-item h3 {

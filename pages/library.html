@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explore our comprehensive library of Bharatanatyam mudras">
+    <meta name="description" content="Explore our comprehensive library of 28 Asamyukta Hasta (single-hand) Bharatanatyam mudras with meanings, usage, and how to perform each gesture.">
     <title>Mudra Library - Mudra Academy</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,7 +32,7 @@
                 <li><a href="../index.html#features">Features</a></li>
                 <li><a href="../index.html#games">Games</a></li>
                 <li><a href="../index.html#webcam">Live Detection</a></li>
-                <li><a href="library.html">Library</a></li>
+                <li><a href="library.html" class="active">Library</a></li>
             </ul>
             
             <div class="nav-cta">
@@ -56,62 +56,712 @@
                     <span>/</span>
                     <span>Mudra Library</span>
                 </nav>
-                <h1>Mudra Library</h1>
-                <p>Explore our comprehensive collection of Bharatanatyam mudras</p>
+                <h1>Asamyukta Hasta</h1>
+                <p>Single-hand gestures forming the foundation of Bharatanatyam expression</p>
             </div>
         </div>
     </section>
 
-    <!-- Page Content -->
-    <section class="page-content section">
+    <!-- Library Stats -->
+    <section class="library-stats">
         <div class="container">
-            <div class="placeholder-content">
-                <div class="placeholder-icon">
+            <div class="stats-bar">
+                <div class="stat-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                        <line x1="6" y1="1" x2="6" y2="4"/>
+                        <line x1="10" y1="1" x2="10" y2="4"/>
+                        <line x1="14" y1="1" x2="14" y2="4"/>
+                    </svg>
+                    <span>28 Mudras</span>
+                </div>
+                <div class="stat-badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                    <span>Single Hand</span>
+                </div>
+                <div class="stat-badge">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
                         <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
                     </svg>
+                    <span>Natyashastra</span>
                 </div>
-                <h2>Coming Soon</h2>
-                <p>Our comprehensive Mudra Library is currently under development. Soon you'll have access to detailed information about all single-hand and double-hand mudras used in Bharatanatyam.</p>
-                
-                <div class="placeholder-features">
-                    <div class="placeholder-feature">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"/>
-                        </svg>
-                        <span>28+ Single hand mudras</span>
-                    </div>
-                    <div class="placeholder-feature">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"/>
-                        </svg>
-                        <span>24+ Double hand mudras</span>
-                    </div>
-                    <div class="placeholder-feature">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"/>
-                        </svg>
-                        <span>Detailed meanings and usage</span>
-                    </div>
-                    <div class="placeholder-feature">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"/>
-                        </svg>
-                        <span>High-quality images</span>
-                    </div>
-                </div>
-                
-                <a href="../index.html" class="btn btn-primary">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="19" y1="12" x2="5" y2="12"/>
-                        <polyline points="12 19 5 12 12 5"/>
-                    </svg>
-                    Back to Home
-                </a>
             </div>
         </div>
     </section>
+
+    <!-- Search & Filter -->
+    <section class="library-controls">
+        <div class="container">
+            <div class="search-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                </svg>
+                <input type="text" id="mudraSearch" placeholder="Search mudras by name or meaning..." autocomplete="off">
+                <button class="search-clear" id="clearSearch" aria-label="Clear search">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="results-count">
+                <span id="resultsCount">Showing all 28 mudras</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mudra Grid -->
+    <section class="library-content section">
+        <div class="container">
+            <div class="mudra-grid" id="mudraGrid">
+                
+                <!-- 1. Pataka -->
+                <article class="mudra-card" data-mudra="pataka" data-keywords="flag beginning dance invocation forest river breeze sky clouds command blessing">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">01</span>
+                        <img src="../assets/images/Mudras/Pataka.jpg" alt="Pataka Mudra - Flag gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Pataka</h3>
+                            <span class="mudra-translation">Flag</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Beginning of dance, invocation, forest, river, breeze, sky, clouds, command, blessing.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>All five fingers are fully extended and held straight. Fingers are close together. The thumb is straight and aligned alongside the palm.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 2. Tripataka -->
+                <article class="mudra-card" data-mudra="tripataka" data-keywords="three part flag tree crown thunderbolt indra power flame">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">02</span>
+                        <img src="../assets/images/Mudras/Tripataka.jpg" alt="Tripataka Mudra - Three-part flag gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Tripataka</h3>
+                            <span class="mudra-translation">Three-part Flag</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Tree, crown, thunderbolt, Indra, power, flame.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>The ring finger is bent inward more than halfway toward the palm. The other fingers remain fully extended and held together.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 3. Ardhapataka -->
+                <article class="mudra-card" data-mudra="ardhapataka" data-keywords="half flag leaves riverbank horn writing precision">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">03</span>
+                        <img src="../assets/images/Mudras/Ardhapataka.jpg" alt="Ardhapataka Mudra - Half flag gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Ardhapataka</h3>
+                            <span class="mudra-translation">Half Flag</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Leaves, riverbank, horn, writing, precision.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>The little finger is bent inward toward the palm. The remaining fingers are fully extended and held together.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 4. Kartarimukha -->
+                <article class="mudra-card" data-mudra="kartarimukha" data-keywords="scissor face cutting separation lightning conflict">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">04</span>
+                        <img src="../assets/images/Mudras/Kartarimukha.jpg" alt="Kartarimukha Mudra - Scissor face gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Kartarimukha</h3>
+                            <span class="mudra-translation">Scissor Face</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Cutting, separation, lightning, conflict.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>Index and middle fingers are fully extended and separated. Ring and little fingers are bent inward. Thumb supports them.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 5. Mayura -->
+                <article class="mudra-card" data-mudra="mayura" data-keywords="peacock beauty grace tilak wiping tears">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">05</span>
+                        <img src="../assets/images/Mudras/Mayura.jpg" alt="Mayura Mudra - Peacock gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Mayura</h3>
+                            <span class="mudra-translation">Peacock</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Beauty, grace, tilak, wiping tears.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>The ring finger touches the tip of the thumb. Index, middle, and little fingers are fully extended.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 6. Ardhachandra -->
+                <article class="mudra-card" data-mudra="ardhachandra" data-keywords="half moon blessings greeting offering">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">06</span>
+                        <img src="../assets/images/Mudras/Ardhachandra.jpg" alt="Ardhachandra Mudra - Half moon gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Ardhachandra</h3>
+                            <span class="mudra-translation">Half Moon</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Moon, blessings, greeting, offering.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>All fingers are extended and held together. Thumb is stretched outward away from the palm.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 7. Arala -->
+                <article class="mudra-card" data-mudra="arala" data-keywords="bent hand drinking nectar poison wind strength">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">07</span>
+                        <img src="../assets/images/Mudras/Arala.jpg" alt="Arala Mudra - Bent hand gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Arala</h3>
+                            <span class="mudra-translation">Bent Hand</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Drinking nectar or poison, wind, strength.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>Index finger is bent inward more than halfway. Remaining fingers are fully extended and held together.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 8. Shukatunda -->
+                <article class="mudra-card" data-mudra="shukatunda" data-keywords="parrot beak shooting arrows affection precision">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">08</span>
+                        <img src="../assets/images/Mudras/Sukatunda.jpg" alt="Shukatunda Mudra - Parrot beak gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Shukatunda</h3>
+                            <span class="mudra-translation">Parrot Beak</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Shooting arrows, affection, precision.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>Index finger is bent toward the thumb forming a beak shape. Other fingers remain extended.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 9. Mushti -->
+                <article class="mudra-card" data-mudra="mushti" data-keywords="fist anger power holding weapons">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">09</span>
+                        <img src="../assets/images/Mudras/Musti.jpg" alt="Mushti Mudra - Fist gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Mushti</h3>
+                            <span class="mudra-translation">Fist</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Anger, power, holding weapons.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>All fingers including thumb are folded tightly inward forming a fist.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 10. Shikhara -->
+                <article class="mudra-card" data-mudra="shikhara" data-keywords="crest bow bell valor trident symbol">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">10</span>
+                        <img src="../assets/images/Mudras/Sikharam.jpg" alt="Shikhara Mudra - Crest gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Shikhara</h3>
+                            <span class="mudra-translation">Crest</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Bow, bell, valor, trident symbol.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>Thumb is held upright. Other fingers are bent inward toward the palm.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 11. Kapitta -->
+                <article class="mudra-card" data-mudra="kapitta" data-keywords="elephant apple holding flowers devotion lakshmi">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">11</span>
+                        <img src="../assets/images/Mudras/Kapittha.jpg" alt="Kapitta Mudra - Elephant apple gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Kapitta</h3>
+                            <span class="mudra-translation">Elephant Apple</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Holding flowers, devotion, Lakshmi.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>Index finger is bent to touch the base of the thumb. Other fingers are folded inward.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 12. Katakamukha -->
+                <article class="mudra-card" data-mudra="katakamukha" data-keywords="bracelet link tying garlands ornaments">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">12</span>
+                        <img src="../assets/images/Mudras/Katakamukha.jpg" alt="Katakamukha Mudra - Bracelet link gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Katakamukha</h3>
+                            <span class="mudra-translation">Bracelet Link</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Tying garlands, ornaments.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>Thumb, index, and middle fingers form a circular shape. Ring and little fingers are extended.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 13. Suchi -->
+                <article class="mudra-card" data-mudra="suchi" data-keywords="needle pointing number one pain">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">13</span>
+                        <img src="../assets/images/Mudras/Suchi.jpg" alt="Suchi Mudra - Needle gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Suchi</h3>
+                            <span class="mudra-translation">Needle</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Pointing, number one, pain.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>Index finger is fully extended upward. Other fingers are bent inward.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 14. Chandrakala -->
+                <article class="mudra-card" data-mudra="chandrakala" data-keywords="moon tip elegance curved forms">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">14</span>
+                        <img src="../assets/images/Mudras/Chandrakala.jpg" alt="Chandrakala Mudra - Moon tip gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Chandrakala</h3>
+                            <span class="mudra-translation">Moon Tip</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Moon, elegance, curved forms.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>Thumb and little finger are extended. Other fingers are bent inward.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 15. Padmakosha -->
+                <article class="mudra-card" data-mudra="padmakosha" data-keywords="lotus bud flowers offerings abundance">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">15</span>
+                        <img src="../assets/images/Mudras/Padmakosa.jpg" alt="Padmakosha Mudra - Lotus bud gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Padmakosha</h3>
+                            <span class="mudra-translation">Lotus Bud</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Flowers, offerings, abundance.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>All fingers are gently curved inward forming a bud-like hollow shape.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 16. Sarpashirsha -->
+                <article class="mudra-card" data-mudra="sarpashirsha" data-keywords="serpent head snake hood oil massage flow">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">16</span>
+                        <img src="../assets/images/Mudras/Sarpashirsa.jpg" alt="Sarpashirsha Mudra - Serpent head gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Sarpashirsha</h3>
+                            <span class="mudra-translation">Serpent Head</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Snake hood, oil massage, flow.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>All fingers are curved together forming a serpent hood shape.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 17. Mrigashirsha -->
+                <article class="mudra-card" data-mudra="mrigashirsha" data-keywords="deer head innocence tenderness">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">17</span>
+                        <img src="../assets/images/Mudras/Mrugashirsha-Hasta.jpg" alt="Mrigashirsha Mudra - Deer head gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Mrigashirsha</h3>
+                            <span class="mudra-translation">Deer Head</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Deer, innocence, tenderness.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>Index and middle fingers extended together. Ring and little fingers bent inward.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 18. Simhamukha -->
+                <article class="mudra-card" data-mudra="simhamukha" data-keywords="lion face fierceness pouring liquids">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">18</span>
+                        <img src="../assets/images/Mudras/Simhamukha.jpg" alt="Simhamukha Mudra - Lion face gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Simhamukha</h3>
+                            <span class="mudra-translation">Lion Face</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Lion, fierceness, pouring liquids.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>Index finger bent inward. Thumb presses against it. Other fingers folded.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 19. Kangula -->
+                <article class="mudra-card" data-mudra="kangula" data-keywords="small bell berries small fruits delicacy">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">19</span>
+                        <img src="../assets/images/Mudras/Kangula.jpg" alt="Kangula Mudra - Small bell gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Kangula</h3>
+                            <span class="mudra-translation">Small Bell</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Berries, small fruits, delicacy.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>Thumb touches middle finger. Other fingers are bent inward.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 20. Alapadma -->
+                <article class="mudra-card" data-mudra="alapadma" data-keywords="open lotus beauty bloom elegance">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">20</span>
+                        <img src="../assets/images/Mudras/Alapadma.jpg" alt="Alapadma Mudra - Open lotus gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Alapadma</h3>
+                            <span class="mudra-translation">Open Lotus</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Beauty, bloom, elegance.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>All fingers are fully spread apart forming an open lotus.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 21. Chatura -->
+                <article class="mudra-card" data-mudra="chatura" data-keywords="clever hand intelligence counting subtlety">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">21</span>
+                        <img src="../assets/images/Mudras/Chautra.jpg" alt="Chatura Mudra - Clever hand gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Chatura</h3>
+                            <span class="mudra-translation">Clever Hand</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Intelligence, counting, subtlety.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>Thumb touches ring finger. Other fingers remain extended.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 22. Bhramara -->
+                <article class="mudra-card" data-mudra="bhramara" data-keywords="bee attraction manmatha">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">22</span>
+                        <img src="../assets/images/Mudras/Bharma.jpg" alt="Bhramara Mudra - Bee gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Bhramara</h3>
+                            <span class="mudra-translation">Bee</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Bee, attraction, Manmatha.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>Middle finger bent inward. Other fingers are fully extended.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 23. Hamsasya -->
+                <article class="mudra-card" data-mudra="hamsasya" data-keywords="swan beak thread pearl purity">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">23</span>
+                        <img src="../assets/images/Mudras/Hamsasya.jpg" alt="Hamsasya Mudra - Swan beak gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Hamsasya</h3>
+                            <span class="mudra-translation">Swan Beak</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Thread, pearl, purity.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>Thumb and index finger touch lightly. Other fingers are extended.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 24. Hamsapaksha -->
+                <article class="mudra-card" data-mudra="hamsapaksha" data-keywords="swan wing sweeping waves air">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">24</span>
+                        <img src="../assets/images/Mudras/Hamsapaksa.jpg" alt="Hamsapaksha Mudra - Swan wing gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Hamsapaksha</h3>
+                            <span class="mudra-translation">Swan Wing</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Sweeping, waves, air.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>All fingers extended together, hand stretched sideways like a wing.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 25. Sandamsha -->
+                <article class="mudra-card" data-mudra="sandamsha" data-keywords="pincers catching gripping tension">
+                    <div class="mudra-card-image no-image">
+                        <span class="mudra-number">25</span>
+                        <div class="image-placeholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Sandamsha</h3>
+                            <span class="mudra-translation">Pincers</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Catching, gripping, tension.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>Index finger and thumb pinch together. Remaining fingers bent inward.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 26. Mukula -->
+                <article class="mudra-card" data-mudra="mukula" data-keywords="bud eating fruit offering">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">26</span>
+                        <img src="../assets/images/Mudras/Mukula.jpg" alt="Mukula Mudra - Bud gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Mukula</h3>
+                            <span class="mudra-translation">Bud</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Eating, fruit, offering.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>All fingertips including thumb touch together forming a bud.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 27. Tamrachuda -->
+                <article class="mudra-card" data-mudra="tamrachuda" data-keywords="rooster crest alertness speed">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">27</span>
+                        <img src="../assets/images/Mudras/Tamracuda.jpg" alt="Tamrachuda Mudra - Rooster crest gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Tamrachuda</h3>
+                            <span class="mudra-translation">Rooster Crest</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Rooster, alertness, speed.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>Ring finger bent inward. Other fingers are extended and held together.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 28. Trishula -->
+                <article class="mudra-card" data-mudra="trishula" data-keywords="trident shiva fire protection">
+                    <div class="mudra-card-image">
+                        <span class="mudra-number">28</span>
+                        <img src="../assets/images/Mudras/Trisula.jpg" alt="Trishula Mudra - Trident gesture" loading="lazy">
+                    </div>
+                    <div class="mudra-card-content">
+                        <div class="mudra-card-header">
+                            <h3>Trishula</h3>
+                            <span class="mudra-translation">Trident</span>
+                        </div>
+                        <div class="mudra-meanings">
+                            <h4>Meanings & Usage</h4>
+                            <p>Shiva, fire, protection.</p>
+                        </div>
+                        <div class="mudra-technique">
+                            <h4>How to Perform</h4>
+                            <p>Index, middle, and ring fingers extended upward. Thumb and little finger bent inward.</p>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- No Results Message -->
+            <div class="no-results" id="noResults">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                </svg>
+                <h3>No mudras found</h3>
+                <p>Try adjusting your search terms</p>
+                <button class="btn btn-secondary" onclick="clearSearch()">Clear Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15"/>
+        </svg>
+    </button>
 
     <!-- Footer -->
     <footer class="footer">
@@ -123,5 +773,103 @@
     </footer>
 
     <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initLibrarySearch();
+            initBackToTop();
+        });
+
+        function initLibrarySearch() {
+            const searchInput = document.getElementById('mudraSearch');
+            const clearBtn = document.getElementById('clearSearch');
+            const mudraGrid = document.getElementById('mudraGrid');
+            const mudraCards = document.querySelectorAll('.mudra-card');
+            const resultsCount = document.getElementById('resultsCount');
+            const noResults = document.getElementById('noResults');
+
+            if (!searchInput) return;
+
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase().trim();
+                let visibleCount = 0;
+
+                clearBtn.style.display = query ? 'flex' : 'none';
+
+                mudraCards.forEach(card => {
+                    const mudraName = card.dataset.mudra;
+                    const keywords = card.dataset.keywords;
+                    const cardText = card.textContent.toLowerCase();
+                    
+                    const matches = !query || 
+                        mudraName.includes(query) || 
+                        keywords.includes(query) || 
+                        cardText.includes(query);
+
+                    if (matches) {
+                        card.style.display = '';
+                        card.classList.remove('hidden');
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                        card.classList.add('hidden');
+                    }
+                });
+
+                if (query) {
+                    resultsCount.textContent = 'Found ' + visibleCount + ' mudra' + (visibleCount !== 1 ? 's' : '') + ' for "' + query + '"';
+                } else {
+                    resultsCount.textContent = 'Showing all 28 mudras';
+                }
+
+                noResults.style.display = visibleCount === 0 ? 'flex' : 'none';
+                mudraGrid.style.display = visibleCount === 0 ? 'none' : '';
+            });
+
+            clearBtn.addEventListener('click', clearSearch);
+        }
+
+        function clearSearch() {
+            const searchInput = document.getElementById('mudraSearch');
+            const clearBtn = document.getElementById('clearSearch');
+            const mudraGrid = document.getElementById('mudraGrid');
+            const mudraCards = document.querySelectorAll('.mudra-card');
+            const resultsCount = document.getElementById('resultsCount');
+            const noResults = document.getElementById('noResults');
+
+            searchInput.value = '';
+            clearBtn.style.display = 'none';
+            
+            mudraCards.forEach(card => {
+                card.style.display = '';
+                card.classList.remove('hidden');
+            });
+
+            resultsCount.textContent = 'Showing all 28 mudras';
+            noResults.style.display = 'none';
+            mudraGrid.style.display = '';
+            searchInput.focus();
+        }
+
+        function initBackToTop() {
+            const backToTop = document.getElementById('backToTop');
+            
+            if (!backToTop) return;
+
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 500) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+
+            backToTop.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+    </script>
 </body>
 </html>

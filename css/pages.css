@@ -1,0 +1,445 @@
+/* ========================================
+   MUDRA - Page-Specific Styles
+   ======================================== */
+
+/* ========== Page Header ========== */
+.page-header {
+    background: var(--gradient-hero);
+    padding: calc(80px + var(--spacing-4xl)) 0 var(--spacing-3xl);
+    position: relative;
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4A84B' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.page-header-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.page-header h1 {
+    color: var(--color-light);
+    margin-bottom: var(--spacing-md);
+}
+
+.page-header p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ========== Breadcrumb ========== */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+    font-size: 0.875rem;
+}
+
+.breadcrumb a {
+    color: rgba(255, 255, 255, 0.6);
+    transition: color var(--transition-fast);
+}
+
+.breadcrumb a:hover {
+    color: var(--color-secondary);
+}
+
+.breadcrumb span {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.breadcrumb span:last-child {
+    color: var(--color-secondary);
+}
+
+/* ========== Page Content ========== */
+.page-content {
+    min-height: 50vh;
+}
+
+/* ========== Placeholder Content ========== */
+.placeholder-content {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.placeholder-icon {
+    width: 120px;
+    height: 120px;
+    background: var(--gradient-card);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--spacing-2xl);
+    border: 2px solid rgba(139, 41, 66, 0.1);
+}
+
+.placeholder-icon svg {
+    width: 56px;
+    height: 56px;
+    color: var(--color-primary);
+}
+
+.placeholder-content h2 {
+    margin-bottom: var(--spacing-md);
+    color: var(--color-dark);
+}
+
+.placeholder-content > p {
+    font-size: 1.125rem;
+    color: var(--color-gray);
+    margin-bottom: var(--spacing-2xl);
+    line-height: 1.7;
+}
+
+.placeholder-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-2xl);
+    text-align: left;
+}
+
+.placeholder-feature {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    background: var(--color-light-warm);
+    border-radius: var(--radius-md);
+}
+
+.placeholder-feature svg {
+    width: 20px;
+    height: 20px;
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.placeholder-feature span {
+    font-size: 0.9rem;
+    color: var(--color-dark);
+}
+
+/* ========== Generic Page Card ========== */
+.page-card {
+    background: var(--color-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-2xl);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
+}
+
+.page-card:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-4px);
+}
+
+/* ========== Library Page ========== */
+.mudra-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-xl);
+}
+
+.mudra-card {
+    background: var(--color-light);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
+}
+
+.mudra-card:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-8px);
+}
+
+.mudra-card-image {
+    aspect-ratio: 4/3;
+    background: var(--gradient-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mudra-card-image svg {
+    width: 80px;
+    height: 80px;
+    color: var(--color-primary);
+    opacity: 0.5;
+}
+
+.mudra-card-content {
+    padding: var(--spacing-lg);
+}
+
+.mudra-card-content h3 {
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.mudra-card-content p {
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.mudra-card-tag {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: rgba(139, 41, 66, 0.1);
+    color: var(--color-primary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ========== About Page ========== */
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-4xl);
+    align-items: center;
+}
+
+.about-image {
+    position: relative;
+}
+
+.about-image-placeholder {
+    aspect-ratio: 4/3;
+    background: var(--gradient-card);
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-image-placeholder svg {
+    width: 120px;
+    height: 120px;
+    color: var(--color-primary);
+    opacity: 0.3;
+}
+
+.about-text h2 {
+    margin-bottom: var(--spacing-lg);
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+/* ========== Contact Page ========== */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-3xl);
+}
+
+.contact-info h3 {
+    margin-bottom: var(--spacing-lg);
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.contact-item-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--gradient-card);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.contact-item-icon svg {
+    width: 24px;
+    height: 24px;
+    color: var(--color-primary);
+}
+
+.contact-item-text h4 {
+    margin-bottom: var(--spacing-xs);
+}
+
+.contact-item-text p {
+    margin-bottom: 0;
+}
+
+.contact-form {
+    background: var(--color-light);
+    padding: var(--spacing-2xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-dark);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: var(--spacing-md);
+    border: 2px solid var(--color-gray-light);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color var(--transition-fast);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.form-group textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* ========== Detection Page ========== */
+.detection-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--spacing-2xl);
+}
+
+.detection-video-area {
+    background: var(--color-dark);
+    border-radius: var(--radius-xl);
+    aspect-ratio: 16/10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.detection-video-area svg {
+    width: 80px;
+    height: 80px;
+    color: var(--color-secondary);
+    opacity: 0.3;
+}
+
+.detection-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.detection-result-card {
+    background: var(--color-light);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.detection-result-card h3 {
+    margin-bottom: var(--spacing-md);
+    font-size: 1.1rem;
+}
+
+.detection-status {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    background: var(--color-light-warm);
+    border-radius: var(--radius-md);
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-gray);
+}
+
+.status-indicator.active {
+    background: #28c840;
+    animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* ========== Responsive Styles ========== */
+@media (max-width: 1024px) {
+    .about-content,
+    .contact-grid,
+    .detection-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-image {
+        order: -1;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-header {
+        padding: calc(70px + var(--spacing-3xl)) 0 var(--spacing-2xl);
+    }
+    
+    .page-header p {
+        font-size: 1.1rem;
+    }
+    
+    .placeholder-features {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .breadcrumb {
+        font-size: 0.8rem;
+    }
+    
+    .placeholder-icon {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .placeholder-icon svg {
+        width: 48px;
+        height: 48px;
+    }
+}

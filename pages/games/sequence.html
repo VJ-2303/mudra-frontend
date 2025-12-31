@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Test your understanding of correct mudra order in Bharatanatyam sequences">
-    <title>Mudra Sequence Game - Mudra Academy</title>
+    <meta name="description" content="Test your knowledge of mudra sequences - arrange mudras in the correct Bharatanatyam order">
+    <title>Mudra Sequence - Mudra Academy</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,6 +13,830 @@
     <link rel="stylesheet" href="../../css/pages.css">
     
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%238B2942' width='100' height='100' rx='20'/%3E%3Ctext x='50' y='65' font-size='50' text-anchor='middle' fill='%23D4A84B' font-family='serif'%3EM%3C/text%3E%3C/svg%3E">
+    
+    <style>
+        /* Sequence Game Styles */
+        .sequence-container {
+            padding: 2rem 0 4rem;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Start Screen */
+        .sequence-start-screen {
+            text-align: center;
+            padding: 4rem 2rem;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .sequence-start-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            box-shadow: 0 20px 40px rgba(139, 41, 66, 0.3);
+            position: relative;
+        }
+
+        .sequence-start-icon::before,
+        .sequence-start-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            opacity: 0.3;
+        }
+
+        .sequence-start-icon::before {
+            transform: translate(-12px, -12px) rotate(-8deg);
+            z-index: -1;
+        }
+
+        .sequence-start-icon::after {
+            transform: translate(12px, 12px) rotate(8deg);
+            z-index: -2;
+            opacity: 0.15;
+        }
+
+        .sequence-start-icon svg {
+            width: 60px;
+            height: 60px;
+            color: white;
+        }
+
+        .sequence-start-screen h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--color-text);
+            margin-bottom: 1rem;
+        }
+
+        .sequence-start-screen > p {
+            color: var(--color-text-light);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .sequence-info-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .sequence-info-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 1.25rem 1rem;
+            text-align: center;
+        }
+
+        .sequence-info-card svg {
+            width: 28px;
+            height: 28px;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .sequence-info-card span {
+            display: block;
+            font-weight: 600;
+            color: var(--color-text);
+            font-size: 1.1rem;
+        }
+
+        .sequence-info-card small {
+            color: var(--color-text-light);
+            font-size: 0.85rem;
+        }
+
+        .btn-start-sequence {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--color-primary), #a33356);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 41, 66, 0.3);
+        }
+
+        .btn-start-sequence:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 41, 66, 0.4);
+        }
+
+        .btn-start-sequence svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Game Area */
+        .sequence-game-area {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .sequence-game-area.active {
+            display: block;
+        }
+
+        /* Progress & Stats */
+        .sequence-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .sequence-progress {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .progress-label {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .progress-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--color-border);
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.completed {
+            background: #10b981;
+        }
+
+        .progress-dot.current {
+            background: var(--color-primary);
+            transform: scale(1.2);
+        }
+
+        .sequence-score {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        .sequence-score svg {
+            width: 20px;
+            height: 20px;
+            color: var(--color-secondary);
+        }
+
+        /* Game Card */
+        .sequence-game-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .sequence-question {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .sequence-question h2 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--color-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .sequence-question p {
+            color: var(--color-text-light);
+        }
+
+        /* Drop Zone */
+        .drop-zone {
+            background: linear-gradient(135deg, rgba(139, 41, 66, 0.05), rgba(212, 168, 75, 0.05));
+            border: 2px dashed var(--color-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            min-height: 140px;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .drop-zone.drag-over {
+            border-color: var(--color-primary);
+            background: rgba(139, 41, 66, 0.1);
+        }
+
+        .drop-zone-placeholder {
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .drop-zone-placeholder svg {
+            width: 32px;
+            height: 32px;
+            opacity: 0.5;
+        }
+
+        /* Mudra Items */
+        .mudra-item {
+            background: var(--color-surface);
+            border: 2px solid var(--color-border);
+            border-radius: 12px;
+            padding: 0.75rem;
+            cursor: grab;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 110px;
+            user-select: none;
+        }
+
+        .mudra-item:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .mudra-item.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        .mudra-item.in-dropzone {
+            border-color: var(--color-primary);
+            background: rgba(139, 41, 66, 0.05);
+        }
+
+        .mudra-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            pointer-events: none;
+        }
+
+        .mudra-item .mudra-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--color-text);
+            pointer-events: none;
+        }
+
+        .mudra-item .order-badge {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            width: 24px;
+            height: 24px;
+            background: var(--color-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* Shuffled Items Container */
+        .shuffled-mudras {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--color-background);
+            border-radius: 16px;
+        }
+
+        /* Action Buttons */
+        .sequence-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--color-primary), #a33356);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 41, 66, 0.3);
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 41, 66, 0.4);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-reset {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: var(--color-surface);
+            color: var(--color-text);
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid var(--color-border);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-reset:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .btn-submit svg,
+        .btn-reset svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Feedback Section */
+        .feedback-section {
+            display: none;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .feedback-section.show {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-section.correct {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .feedback-section.incorrect {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .feedback-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .feedback-section.correct .feedback-icon {
+            background: #10b981;
+        }
+
+        .feedback-section.incorrect .feedback-icon {
+            background: #ef4444;
+        }
+
+        .feedback-icon svg {
+            width: 30px;
+            height: 30px;
+            color: white;
+        }
+
+        .feedback-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .feedback-section.correct .feedback-title {
+            color: #047857;
+        }
+
+        .feedback-section.incorrect .feedback-title {
+            color: #dc2626;
+        }
+
+        .feedback-text {
+            color: var(--color-text-light);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Correct Order Display */
+        .correct-order-display {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: var(--color-surface);
+            border-radius: 12px;
+        }
+
+        .correct-order-display h4 {
+            font-size: 0.9rem;
+            color: var(--color-text);
+            margin-bottom: 1rem;
+        }
+
+        .correct-order-list {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .correct-order-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+
+        .correct-order-item .order-num {
+            width: 22px;
+            height: 22px;
+            background: #10b981;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .btn-next {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--color-primary), #a33356);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-next svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Results Screen */
+        .results-screen {
+            display: none;
+            text-align: center;
+            padding: 3rem 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .results-screen.active {
+            display: block;
+        }
+
+        .results-icon {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+        }
+
+        .results-icon.excellent {
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.3);
+        }
+
+        .results-icon.good {
+            background: linear-gradient(135deg, var(--color-secondary), #c99a3d);
+            box-shadow: 0 20px 40px rgba(212, 168, 75, 0.3);
+        }
+
+        .results-icon.average {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.3);
+        }
+
+        .results-icon.needs-practice {
+            background: linear-gradient(135deg, var(--color-primary), #a33356);
+            box-shadow: 0 20px 40px rgba(139, 41, 66, 0.3);
+        }
+
+        .results-icon svg {
+            width: 70px;
+            height: 70px;
+            color: white;
+        }
+
+        .results-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--color-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .results-subtitle {
+            color: var(--color-text-light);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .results-score-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .score-display {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .score-display span {
+            font-size: 2rem;
+            color: var(--color-text-light);
+        }
+
+        .score-label {
+            color: var(--color-text-light);
+            font-size: 1rem;
+        }
+
+        .results-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-restart {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--color-primary), #a33356);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-restart:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: var(--color-surface);
+            color: var(--color-text);
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid var(--color-border);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-home:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        .btn-restart svg,
+        .btn-home svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .sequence-start-screen {
+                padding: 2rem 1rem;
+            }
+
+            .sequence-start-icon {
+                width: 100px;
+                height: 100px;
+            }
+
+            .sequence-start-icon svg {
+                width: 50px;
+                height: 50px;
+            }
+
+            .sequence-start-screen h1 {
+                font-size: 1.75rem;
+            }
+
+            .sequence-info-cards {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+
+            .sequence-info-card {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                text-align: left;
+                padding: 1rem;
+            }
+
+            .sequence-info-card svg {
+                margin-bottom: 0;
+            }
+
+            .sequence-game-card {
+                padding: 1.5rem;
+            }
+
+            .sequence-question h2 {
+                font-size: 1.25rem;
+            }
+
+            .mudra-item {
+                width: 90px;
+            }
+
+            .mudra-item img {
+                width: 65px;
+                height: 65px;
+            }
+
+            .mudra-item .mudra-name {
+                font-size: 0.7rem;
+            }
+
+            .drop-zone {
+                padding: 1rem;
+                min-height: 120px;
+            }
+
+            .results-title {
+                font-size: 1.75rem;
+            }
+
+            .score-display {
+                font-size: 3rem;
+            }
+
+            .results-actions {
+                flex-direction: column;
+            }
+
+            .btn-restart,
+            .btn-home {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sequence-container {
+                padding: 1rem 0 3rem;
+            }
+
+            .sequence-start-screen h1 {
+                font-size: 1.5rem;
+            }
+
+            .sequence-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .sequence-progress {
+                justify-content: center;
+            }
+
+            .sequence-score {
+                justify-content: center;
+            }
+
+            .mudra-item {
+                width: 80px;
+                padding: 0.5rem;
+            }
+
+            .mudra-item img {
+                width: 55px;
+                height: 55px;
+            }
+
+            .shuffled-mudras {
+                gap: 0.5rem;
+                padding: 0.75rem;
+            }
+
+            .drop-zone {
+                gap: 0.5rem;
+            }
+
+            .feedback-section {
+                padding: 1rem;
+            }
+
+            .correct-order-item {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.75rem;
+            }
+
+            .results-score-card {
+                padding: 1.5rem;
+            }
+
+            .score-display {
+                font-size: 2.5rem;
+            }
+
+            .score-display span {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -56,63 +880,200 @@
                     <span>/</span>
                     <a href="../../index.html#games">Games</a>
                     <span>/</span>
-                    <span>Sequence Game</span>
+                    <span>Sequence</span>
                 </nav>
-                <h1>Mudra Sequence Game</h1>
-                <p>Arrange the mudras in the correct traditional order</p>
+                <h1>Mudra Sequence</h1>
+                <p>Arrange mudras in the correct traditional order</p>
             </div>
         </div>
     </section>
 
-    <!-- Game Content -->
-    <section class="page-content section">
+    <!-- Sequence Container -->
+    <section class="sequence-container">
         <div class="container">
-            <div class="placeholder-content">
-                <div class="placeholder-icon">
+            <!-- Start Screen -->
+            <div class="sequence-start-screen" id="startScreen">
+                <div class="sequence-start-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="3" width="7" height="7"/>
-                        <rect x="14" y="3" width="7" height="7"/>
-                        <rect x="14" y="14" width="7" height="7"/>
-                        <rect x="3" y="14" width="7" height="7"/>
+                        <line x1="8" y1="6" x2="21" y2="6"/>
+                        <line x1="8" y1="12" x2="21" y2="12"/>
+                        <line x1="8" y1="18" x2="21" y2="18"/>
+                        <line x1="3" y1="6" x2="3.01" y2="6"/>
+                        <line x1="3" y1="12" x2="3.01" y2="12"/>
+                        <line x1="3" y1="18" x2="3.01" y2="18"/>
                     </svg>
                 </div>
-                <h2>Coming Soon</h2>
-                <p>The Mudra Sequence Game is currently under development. Soon you'll be able to test your knowledge of traditional mudra sequences through interactive drag-and-drop challenges.</p>
+                <h1>Mudra Sequence Challenge</h1>
+                <p>Test your understanding of correct mudra order in Bharatanatyam. You will be shown shuffled mudras - arrange them in the proper traditional sequence!</p>
                 
-                <div class="placeholder-features">
-                    <div class="placeholder-feature">
+                <div class="sequence-info-cards">
+                    <div class="sequence-info-card">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"/>
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="3" y1="9" x2="21" y2="9"/>
+                            <line x1="9" y1="21" x2="9" y2="9"/>
                         </svg>
-                        <span>Authentic Bharatanatyam sequences</span>
+                        <div>
+                            <span>5</span>
+                            <small>Rounds</small>
+                        </div>
                     </div>
-                    <div class="placeholder-feature">
+                    <div class="sequence-info-card">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <path d="M4 22h14a2 2 0 0 0 2-2V8l-6-6H6a2 2 0 0 0-2 2v4"/>
+                            <path d="m3 15 2 2 4-4"/>
                         </svg>
-                        <span>Drag and drop interface</span>
+                        <div>
+                            <span>Drag</span>
+                            <small>& Drop</small>
+                        </div>
                     </div>
-                    <div class="placeholder-feature">
+                    <div class="sequence-info-card">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"/>
+                            <path d="M12 20h9"/>
+                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
                         </svg>
-                        <span>Progressive difficulty levels</span>
-                    </div>
-                    <div class="placeholder-feature">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="20 6 9 17 4 12"/>
-                        </svg>
-                        <span>Detailed explanations</span>
+                        <div>
+                            <span>Learn</span>
+                            <small>Order</small>
+                        </div>
                     </div>
                 </div>
-                
-                <a href="../../index.html#games" class="btn btn-primary">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="19" y1="12" x2="5" y2="12"/>
-                        <polyline points="12 19 5 12 12 5"/>
+
+                <button class="btn-start-sequence" onclick="startGame()">
+                    <span>Start Game</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="5 3 19 12 5 21 5 3"/>
                     </svg>
-                    Back to Games
-                </a>
+                </button>
+            </div>
+
+            <!-- Game Area -->
+            <div class="sequence-game-area" id="gameArea">
+                <!-- Header -->
+                <div class="sequence-header">
+                    <div class="sequence-progress">
+                        <span class="progress-label">Round:</span>
+                        <div class="progress-dots" id="progressDots">
+                            <!-- Dots will be generated -->
+                        </div>
+                    </div>
+                    <div class="sequence-score">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                        <span id="scoreDisplay">0/5</span>
+                    </div>
+                </div>
+
+                <!-- Game Card -->
+                <div class="sequence-game-card">
+                    <div class="sequence-question">
+                        <h2>Arrange the mudras in correct order</h2>
+                        <p>Drag mudras to the drop zone in the proper sequence</p>
+                    </div>
+
+                    <!-- Drop Zone -->
+                    <div class="drop-zone" id="dropZone">
+                        <div class="drop-zone-placeholder" id="dropPlaceholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                            <span>Drop mudras here in order</span>
+                        </div>
+                    </div>
+
+                    <!-- Shuffled Mudras -->
+                    <div class="shuffled-mudras" id="shuffledMudras">
+                        <!-- Mudra items will be generated -->
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="sequence-actions" id="actionButtons">
+                        <button class="btn-reset" onclick="resetRound()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 4 23 10 17 10"/>
+                                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                            </svg>
+                            <span>Reset</span>
+                        </button>
+                        <button class="btn-submit" id="submitBtn" onclick="checkAnswer()" disabled>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <span>Submit</span>
+                        </button>
+                    </div>
+
+                    <!-- Feedback -->
+                    <div class="feedback-section" id="feedbackSection">
+                        <div class="feedback-icon">
+                            <svg id="feedbackIconCorrect" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                            <svg id="feedbackIconIncorrect" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+                                <line x1="18" y1="6" x2="6" y2="18"/>
+                                <line x1="6" y1="6" x2="18" y2="18"/>
+                            </svg>
+                        </div>
+                        <h3 class="feedback-title" id="feedbackTitle">Well Done!</h3>
+                        <p class="feedback-text" id="feedbackText"></p>
+                        
+                        <div class="correct-order-display" id="correctOrderDisplay" style="display:none;">
+                            <h4>Correct Order:</h4>
+                            <div class="correct-order-list" id="correctOrderList">
+                                <!-- Correct order will be shown -->
+                            </div>
+                        </div>
+
+                        <button class="btn-next" id="nextBtn" onclick="nextRound()">
+                            <span>Next Round</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                                <polyline points="12 5 19 12 12 19"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Screen -->
+            <div class="results-screen" id="resultsScreen">
+                <div class="results-icon" id="resultsIcon">
+                    <svg id="resultsIconSvg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                </div>
+                <h2 class="results-title" id="resultsTitle">Great Job!</h2>
+                <p class="results-subtitle" id="resultsSubtitle">You've completed all rounds</p>
+
+                <div class="results-score-card">
+                    <div class="score-display">
+                        <span id="finalScore">0</span><span>/5</span>
+                    </div>
+                    <p class="score-label">Sequences Correct</p>
+                </div>
+
+                <div class="results-actions">
+                    <button class="btn-restart" onclick="restartGame()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 4 23 10 17 10"/>
+                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                        </svg>
+                        <span>Play Again</span>
+                    </button>
+                    <a href="../../index.html#games" class="btn-home">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                            <polyline points="9 22 9 12 15 12 15 22"/>
+                        </svg>
+                        <span>More Games</span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -127,5 +1088,447 @@
     </footer>
 
     <script src="../../js/main.js"></script>
+    <script>
+        // Predefined Mudra Sequences (correct order)
+        const mudraSequences = [
+            {
+                name: "Basic Asamyukta Sequence 1",
+                mudras: [
+                    { name: "Pataka", image: "Pataka.jpg" },
+                    { name: "Tripataka", image: "Tripataka.jpg" },
+                    { name: "Ardhapataka", image: "Ardhapataka.jpg" },
+                    { name: "Kartarimukha", image: "Kartarimukha.jpg" }
+                ],
+                explanation: "This sequence follows the traditional order of the first four Asamyukta Hasta mudras as described in the Natyashastra."
+            },
+            {
+                name: "Basic Asamyukta Sequence 2",
+                mudras: [
+                    { name: "Mayura", image: "Mayura.jpg" },
+                    { name: "Ardhachandra", image: "Ardhachandra.jpg" },
+                    { name: "Arala", image: "Arala.jpg" },
+                    { name: "Shukatunda", image: "Sukatunda.jpg" }
+                ],
+                explanation: "These mudras continue the Asamyukta Hasta sequence, each representing distinct hand formations."
+            },
+            {
+                name: "Fist Variations",
+                mudras: [
+                    { name: "Mushti", image: "Musti.jpg" },
+                    { name: "Shikhara", image: "Sikharam.jpg" },
+                    { name: "Kapitta", image: "Kapittha.jpg" },
+                    { name: "Katakamukha", image: "Katakamukha.jpg" }
+                ],
+                explanation: "This sequence shows the progression of closed-hand mudras from basic fist to more complex formations."
+            },
+            {
+                name: "Finger Point Sequence",
+                mudras: [
+                    { name: "Suchi", image: "Suchi.jpg" },
+                    { name: "Chandrakala", image: "Chandrakala.jpg" },
+                    { name: "Padmakosha", image: "Padmakosa.jpg" },
+                    { name: "Sarpashirsha", image: "Sarpashirsa.jpg" }
+                ],
+                explanation: "These mudras demonstrate the evolution from pointing gestures to curved animal representations."
+            },
+            {
+                name: "Nature & Animals",
+                mudras: [
+                    { name: "Mrigashirsha", image: "Mrugashirsha-Hasta.jpg" },
+                    { name: "Simhamukha", image: "Simhamukha.jpg" },
+                    { name: "Kangula", image: "Kangula.jpg" },
+                    { name: "Alapadma", image: "Alapadma.jpg" }
+                ],
+                explanation: "This sequence represents animals and nature - from deer to lion to bell to the full lotus bloom."
+            },
+            {
+                name: "Advanced Sequence 1",
+                mudras: [
+                    { name: "Chatura", image: "Chautra.jpg" },
+                    { name: "Bhramara", image: "Bharma.jpg" },
+                    { name: "Hamsasya", image: "Hamsasya.jpg" },
+                    { name: "Hamsapaksha", image: "Hamsapaksa.jpg" }
+                ],
+                explanation: "This sequence shows the clever hand followed by bee and swan-related mudras."
+            },
+            {
+                name: "Closing Mudras",
+                mudras: [
+                    { name: "Mukula", image: "Mukula.jpg" },
+                    { name: "Tamrachuda", image: "Tamracuda.jpg" },
+                    { name: "Trishula", image: "Trisula.jpg" },
+                    { name: "Pataka", image: "Pataka.jpg" }
+                ],
+                explanation: "The final sequence in traditional order, ending with the foundational Pataka mudra."
+            }
+        ];
+
+        // Game State
+        let currentRound = 0;
+        let score = 0;
+        let totalRounds = 5;
+        let currentSequence = null;
+        let userOrder = [];
+        let answered = false;
+        let usedSequences = [];
+
+        // Shuffle array
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // Start Game
+        function startGame() {
+            currentRound = 0;
+            score = 0;
+            usedSequences = [];
+            
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('gameArea').classList.add('active');
+            document.getElementById('resultsScreen').classList.remove('active');
+
+            generateProgressDots();
+            loadRound();
+        }
+
+        // Generate Progress Dots
+        function generateProgressDots() {
+            const dotsContainer = document.getElementById('progressDots');
+            dotsContainer.innerHTML = '';
+            
+            for (let i = 0; i < totalRounds; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'progress-dot';
+                if (i === 0) dot.classList.add('current');
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        // Update Progress Dots
+        function updateProgressDots() {
+            const dots = document.querySelectorAll('.progress-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.remove('current', 'completed');
+                if (index < currentRound) {
+                    dot.classList.add('completed');
+                } else if (index === currentRound) {
+                    dot.classList.add('current');
+                }
+            });
+        }
+
+        // Load Round
+        function loadRound() {
+            answered = false;
+            userOrder = [];
+
+            // Get a random sequence that hasn't been used
+            let availableSequences = mudraSequences.filter((_, index) => !usedSequences.includes(index));
+            if (availableSequences.length === 0) {
+                usedSequences = [];
+                availableSequences = mudraSequences;
+            }
+            
+            const randomIndex = Math.floor(Math.random() * availableSequences.length);
+            const originalIndex = mudraSequences.indexOf(availableSequences[randomIndex]);
+            usedSequences.push(originalIndex);
+            currentSequence = availableSequences[randomIndex];
+
+            // Update UI
+            document.getElementById('scoreDisplay').textContent = score + '/' + totalRounds;
+            updateProgressDots();
+
+            // Generate shuffled mudras
+            const shuffledMudras = shuffleArray([...currentSequence.mudras]);
+            const mudrasContainer = document.getElementById('shuffledMudras');
+            mudrasContainer.innerHTML = '';
+
+            shuffledMudras.forEach((mudra, index) => {
+                const item = createMudraItem(mudra, index);
+                mudrasContainer.appendChild(item);
+            });
+
+            // Reset drop zone
+            const dropZone = document.getElementById('dropZone');
+            dropZone.innerHTML = '<div class="drop-zone-placeholder" id="dropPlaceholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Drop mudras here in order</span></div>';
+
+            // Reset buttons and feedback
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('actionButtons').style.display = 'flex';
+            document.getElementById('feedbackSection').classList.remove('show', 'correct', 'incorrect');
+            document.getElementById('correctOrderDisplay').style.display = 'none';
+
+            // Setup drag and drop
+            setupDragAndDrop();
+        }
+
+        // Create Mudra Item
+        function createMudraItem(mudra, index) {
+            const item = document.createElement('div');
+            item.className = 'mudra-item';
+            item.draggable = true;
+            item.dataset.name = mudra.name;
+            item.dataset.image = mudra.image;
+            item.innerHTML = '<img src="../../assets/images/Mudras/' + mudra.image + '" alt="' + mudra.name + '"><div class="mudra-name">' + mudra.name + '</div>';
+            return item;
+        }
+
+        // Setup Drag and Drop
+        function setupDragAndDrop() {
+            const mudraItems = document.querySelectorAll('.mudra-item');
+            const dropZone = document.getElementById('dropZone');
+            const shuffledContainer = document.getElementById('shuffledMudras');
+
+            mudraItems.forEach(item => {
+                item.addEventListener('dragstart', handleDragStart);
+                item.addEventListener('dragend', handleDragEnd);
+                item.addEventListener('click', handleClick);
+            });
+
+            dropZone.addEventListener('dragover', handleDragOver);
+            dropZone.addEventListener('dragleave', handleDragLeave);
+            dropZone.addEventListener('drop', handleDrop);
+
+            // Touch support
+            mudraItems.forEach(item => {
+                item.addEventListener('touchstart', handleTouchStart, { passive: true });
+            });
+        }
+
+        let draggedItem = null;
+
+        function handleDragStart(e) {
+            draggedItem = this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        function handleDragEnd(e) {
+            this.classList.remove('dragging');
+            draggedItem = null;
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            this.classList.add('drag-over');
+        }
+
+        function handleDragLeave(e) {
+            this.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            this.classList.remove('drag-over');
+            
+            if (draggedItem && !answered) {
+                addToDropZone(draggedItem);
+            }
+        }
+
+        function handleClick(e) {
+            if (answered) return;
+            
+            const item = e.currentTarget;
+            if (item.classList.contains('in-dropzone')) {
+                removeFromDropZone(item);
+            } else {
+                addToDropZone(item);
+            }
+        }
+
+        function handleTouchStart(e) {
+            if (answered) return;
+            const item = e.currentTarget;
+            if (item.classList.contains('in-dropzone')) {
+                removeFromDropZone(item);
+            } else {
+                addToDropZone(item);
+            }
+        }
+
+        function addToDropZone(item) {
+            const dropZone = document.getElementById('dropZone');
+            const placeholder = document.getElementById('dropPlaceholder');
+            
+            if (placeholder) {
+                placeholder.remove();
+            }
+
+            item.classList.add('in-dropzone');
+            dropZone.appendChild(item);
+
+            userOrder.push({
+                name: item.dataset.name,
+                image: item.dataset.image
+            });
+
+            updateSubmitButton();
+        }
+
+        function removeFromDropZone(item) {
+            const shuffledContainer = document.getElementById('shuffledMudras');
+            
+            item.classList.remove('in-dropzone');
+            shuffledContainer.appendChild(item);
+
+            userOrder = userOrder.filter(m => m.name !== item.dataset.name);
+
+            updateSubmitButton();
+            checkDropZonePlaceholder();
+        }
+
+        function checkDropZonePlaceholder() {
+            const dropZone = document.getElementById('dropZone');
+            const itemsInZone = dropZone.querySelectorAll('.mudra-item');
+            
+            if (itemsInZone.length === 0) {
+                dropZone.innerHTML = '<div class="drop-zone-placeholder" id="dropPlaceholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Drop mudras here in order</span></div>';
+            }
+        }
+
+        function updateSubmitButton() {
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = userOrder.length !== currentSequence.mudras.length;
+        }
+
+        // Reset Round
+        function resetRound() {
+            if (answered) return;
+            loadRound();
+        }
+
+        // Check Answer
+        function checkAnswer() {
+            if (answered) return;
+            answered = true;
+
+            const isCorrect = userOrder.every((mudra, index) => 
+                mudra.name === currentSequence.mudras[index].name
+            );
+
+            const feedbackSection = document.getElementById('feedbackSection');
+            const feedbackTitle = document.getElementById('feedbackTitle');
+            const feedbackText = document.getElementById('feedbackText');
+            const correctOrderDisplay = document.getElementById('correctOrderDisplay');
+            const actionButtons = document.getElementById('actionButtons');
+
+            feedbackSection.classList.remove('correct', 'incorrect');
+            actionButtons.style.display = 'none';
+
+            if (isCorrect) {
+                score++;
+                document.getElementById('scoreDisplay').textContent = score + '/' + totalRounds;
+                
+                feedbackSection.classList.add('show', 'correct');
+                feedbackTitle.textContent = 'Well Done!';
+                feedbackText.textContent = 'You arranged the mudras correctly! ' + currentSequence.explanation;
+                correctOrderDisplay.style.display = 'none';
+                
+                document.getElementById('feedbackIconCorrect').style.display = 'block';
+                document.getElementById('feedbackIconIncorrect').style.display = 'none';
+            } else {
+                feedbackSection.classList.add('show', 'incorrect');
+                feedbackTitle.textContent = 'Not Quite Right';
+                feedbackText.textContent = currentSequence.explanation;
+                
+                // Show correct order
+                correctOrderDisplay.style.display = 'block';
+                const correctOrderList = document.getElementById('correctOrderList');
+                correctOrderList.innerHTML = '';
+                
+                currentSequence.mudras.forEach((mudra, index) => {
+                    const orderItem = document.createElement('div');
+                    orderItem.className = 'correct-order-item';
+                    orderItem.innerHTML = '<span class="order-num">' + (index + 1) + '</span><span>' + mudra.name + '</span>';
+                    correctOrderList.appendChild(orderItem);
+                });
+
+                document.getElementById('feedbackIconCorrect').style.display = 'none';
+                document.getElementById('feedbackIconIncorrect').style.display = 'block';
+            }
+
+            // Update next button text
+            const nextBtn = document.getElementById('nextBtn');
+            if (currentRound >= totalRounds - 1) {
+                nextBtn.innerHTML = '<span>See Results</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
+            } else {
+                nextBtn.innerHTML = '<span>Next Round</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+            }
+        }
+
+        // Next Round
+        function nextRound() {
+            currentRound++;
+            
+            if (currentRound >= totalRounds) {
+                showResults();
+            } else {
+                loadRound();
+            }
+        }
+
+        // Show Results
+        function showResults() {
+            document.getElementById('gameArea').classList.remove('active');
+            document.getElementById('resultsScreen').classList.add('active');
+
+            document.getElementById('finalScore').textContent = score;
+
+            const resultsIcon = document.getElementById('resultsIcon');
+            const resultsTitle = document.getElementById('resultsTitle');
+            const resultsSubtitle = document.getElementById('resultsSubtitle');
+            const iconSvg = document.getElementById('resultsIconSvg');
+
+            resultsIcon.className = 'results-icon';
+
+            const percentage = (score / totalRounds) * 100;
+
+            if (percentage >= 80) {
+                resultsIcon.classList.add('excellent');
+                resultsTitle.textContent = 'Excellent!';
+                resultsSubtitle.textContent = 'You have mastered the mudra sequences!';
+                iconSvg.innerHTML = '<path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>';
+            } else if (percentage >= 60) {
+                resultsIcon.classList.add('good');
+                resultsTitle.textContent = 'Great Job!';
+                resultsSubtitle.textContent = 'You know your mudra sequences well!';
+                iconSvg.innerHTML = '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>';
+            } else if (percentage >= 40) {
+                resultsIcon.classList.add('average');
+                resultsTitle.textContent = 'Good Effort!';
+                resultsSubtitle.textContent = 'Keep practicing the sequences!';
+                iconSvg.innerHTML = '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>';
+            } else {
+                resultsIcon.classList.add('needs-practice');
+                resultsTitle.textContent = 'Keep Learning!';
+                resultsSubtitle.textContent = 'Visit the library to study the mudra order!';
+                iconSvg.innerHTML = '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>';
+            }
+        }
+
+        // Restart Game
+        function restartGame() {
+            startGame();
+        }
+
+        // Initialize mobile menu
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    this.classList.toggle('active');
+                });
+            }
+        });
+    </script>
 </body>
 </html>

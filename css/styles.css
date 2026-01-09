@@ -376,6 +376,7 @@ p {
     align-items: center;
     position: relative;
     overflow: hidden;
+    padding-top: var(--navbar-height);
 }
 
 .hero::before {

@@ -1234,8 +1234,33 @@
             return shuffled;
         }
 
+        // Fullscreen Functions
+        function enterFullscreen() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen().catch(err => console.log('Fullscreen not available'));
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            }
+        }
+
+        function exitFullscreen() {
+            if (document.fullscreenElement || document.webkitFullscreenElement) {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen().catch(err => console.log('Exit fullscreen failed'));
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                }
+            }
+        }
+
         // Start Game
         function startGame() {
+            // Enter fullscreen for immersive experience
+            enterFullscreen();
+            
             currentRound = 0;
             score = 0;
             usedSequences = [];
@@ -1512,11 +1537,6 @@
             } else {
                 nextBtn.innerHTML = '<span>Next Round</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
             }
-            
-            // Auto-scroll to show feedback section
-            setTimeout(() => {
-                feedbackSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
         }
 
         // Next Round
@@ -1532,6 +1552,9 @@
 
         // Show Results
         function showResults() {
+            // Exit fullscreen when game ends
+            exitFullscreen();
+            
             document.getElementById('gameArea').classList.remove('active');
             document.getElementById('resultsScreen').classList.add('active');
 

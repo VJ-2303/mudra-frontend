@@ -1344,8 +1344,33 @@
             return shuffled;
         }
 
+        // Fullscreen Functions
+        function enterFullscreen() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen().catch(err => console.log('Fullscreen not available'));
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            }
+        }
+
+        function exitFullscreen() {
+            if (document.fullscreenElement || document.webkitFullscreenElement) {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen().catch(err => console.log('Exit fullscreen failed'));
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                }
+            }
+        }
+
         // Start Quiz
         function startQuiz() {
+            // Enter fullscreen for immersive experience
+            enterFullscreen();
+            
             // Select 10 random questions
             selectedQuestions = shuffleArray(allQuestions).slice(0, 10);
             currentQuestionIndex = 0;
@@ -1457,11 +1482,6 @@
 
             // Show next button
             document.getElementById('nextSection').classList.add('show');
-            
-            // Auto-scroll to show explanation and next button
-            setTimeout(() => {
-                document.getElementById('explanationBox').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
         }
 
         // Next Question
@@ -1477,6 +1497,9 @@
 
         // Show Results
         function showResults() {
+            // Exit fullscreen when game ends
+            exitFullscreen();
+            
             document.getElementById('gameArea').classList.remove('active');
             document.getElementById('resultsScreen').classList.add('active');
 

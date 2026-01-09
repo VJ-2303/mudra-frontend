@@ -70,6 +70,9 @@
     /* Container */
     --container-max: 1200px;
     --container-padding: 1.5rem;
+    
+    /* Layout */
+    --navbar-height: 80px;
 }
 
 /* ========== Reset & Base ========== */
@@ -1145,6 +1148,7 @@ p {
     :root {
         --spacing-4xl: 4rem;
         --spacing-3xl: 3rem;
+        --navbar-height: 70px;
     }
     
     .section {
@@ -1326,6 +1330,7 @@ p {
         --spacing-4xl: 3rem;
         --spacing-3xl: 2.5rem;
         --spacing-2xl: 2rem;
+        --navbar-height: 65px;
     }
     
     .logo-text {

@@ -71,7 +71,7 @@
     background: var(--color-light);
     border-bottom: 1px solid rgba(139, 41, 66, 0.1);
     padding: var(--spacing-lg) 0;
-    padding-top: calc(80px + var(--spacing-xl));
+    padding-top: calc(var(--navbar-height) + var(--spacing-xl));
     position: relative;
     z-index: 1;
 }
@@ -110,7 +110,7 @@
 .library-controls {
     background: var(--color-light);
     padding: var(--spacing-xl) 0;
-    padding-top: calc(80px + var(--spacing-xl));
+    padding-top: calc(var(--navbar-height) + var(--spacing-xl));
     border-bottom: 1px solid rgba(139, 41, 66, 0.1);
 }
 
@@ -401,7 +401,7 @@
 /* ========== Page Content ========== */
 .page-content {
     min-height: 50vh;
-    padding-top: calc(80px + var(--spacing-2xl));
+    padding-top: calc(var(--navbar-height) + var(--spacing-2xl));
 }
 
 /* ========== Placeholder Content ========== */
